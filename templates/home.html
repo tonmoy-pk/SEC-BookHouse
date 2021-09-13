@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<h1>Homepage</h1>
+<img class="bookcover" src="{% static 'images/django_for_professionals.jpg' %}"> <!--the image in static directory(project level) then in the images folder -->
+<br>
+
+<form class="form-inline mt-2 mt-md-0" action="{% url 'search_results' %}" method="get"> <!--the action specifies where to redirect the user after the form is submitted,which will be the search_result page. using get method for searching -->
+    <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> <!--'q' will visible in SearchResultsListView class and using for searching option,placeholder which is default text that prompts the user,aria-label which is the name provided to screen reader users -->
+</form>
+
+<!--is_authenticated is boolean function where the condition is either true or false -->
+{% if user.is_authenticated %} <!--use user within template tags to access User attributes,django gives this to us automatically -->
+    Hi {{ user.email }} <!--user is build in django user and email is a attribute define in users/form file -->
+    <p>The username is {{ user.username }}</p>
+    <p><a href="{% url 'account_logout' %}">Log Out</a></p> <!--logout url name from build in django auth and account_logout for django allauth,the one of the usefulness of django allauth is we don't need to create signup view,url function -->
+{% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'account_login' %}">Log In</a> <!--specify url name from build in django auth -->
+    <a href="{% url 'account_signup' %}">Sign Up</a> <!--specify the url name form users/urls.py file -->
+{% endif %}
+{% endblock content %}

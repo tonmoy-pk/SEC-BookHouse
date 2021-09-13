@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+{% block title %}{{ object.title }}{% endblock title %}
+
+{% block content %}
+<div class="book-detail"> <!--the generic detailview returns object for this item(build in),but in class based detailview we explicitly set the context_object_name is 'book' in place of 'object'-->
+ <!-- {% if book.cover %} --> <!--book is object came from detailview and cover is attribute of Book model,if the book cover exist then shows the cover pic -->
+   <!-- <img class="bookcover" src="{{book.cover.url}}" alt="{{ book.title }}"> --> <!--define the image class and 'book' is context_object_name from detailview which means the current object name and cover is the attribute of Book model and alt means if the image could not load then alternatively the 'book title' show -->
+   <!-- {% endif %} -->
+    <h2><a href="">{{ book.title }}</a></h2>
+    <p>Author: {{ book.author }}</p>
+    <p>Price: {{ book.price }}</p>
+
+    <div>
+        <h3>Reviews</h3>
+        <ul>
+         {% for review in book.reviews.all %} <!--related name set to reviews in Review model,so we can easily find out all reviews of a book(book is attribute of Review model which is foreign key)  -->
+         <li>{{ review.review }} ({{ review.author }}) </li>
+         {% endfor %}
+       </ul>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Log Out{% endblock %}
+
+{% block content %}
+<!--here update the default Log out template,the default one is build in on allauth -->
+<div class="container">
+    <h1>Log Out</h1>
+    <p>Are you sure you want to log out?</p>
+    <form method="post" action="{% url 'account_logout' %}"> <!--the form action means what action activate here after submitting,if the html form is connect to forms.py file then you don't need to set form action -->
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-danger" type="submit">Log Out</button>
+    </form>
+</div>
+{% endblock content %}

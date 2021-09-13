@@ -1,0 +1,7 @@
+h1 {
+  color: red;
+}
+.bookcover { /*the image class name is bookcover in home.html */
+    height: 300px;
+    width: auto;
+}

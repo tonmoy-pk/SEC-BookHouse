@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+{% block title %}Orders{% endblock title %}
+
+{% block content %}
+<h1>Orders page</h1>
+<p>Buy for $39.00</p>
+
+<form action="#" method="post"> --> <!--the form action is charge means after submitting the forms the charge works  -->
+    {% csrf_token %}
+  <!--this script is using for order purpose -->
+
+<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="{{ key }}"
+        data-description = "All Books"
+        data-amount = "3900"
+        data-locale = "auto">
+</script>
+</form>
+<!--this stripe_key came from orders/view function's context which one is publishable_key from settings,without stripe.key the button can't works -->
+{% endblock content %}

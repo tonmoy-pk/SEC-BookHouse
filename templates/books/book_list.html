@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+
+{% block title %}Books{% endblock title %}
+
+{% block content %}
+    {% if not perms.books.special_status %} <!--here books is app name,here checks if the current logged-in user already has the proper permission(special_status) then this button would not be visible -->
+     <a href="{% url 'orders' %}" class="btn btn-success">Purchase All Books</a> <!--link with orders url so we can buy these books -->
+    {% endif %}
+    <!--if we don't use context_object_name then the build in context_object_name is object_list -->
+     {% for book in book_list %} <!--book_list is customize context_object_name,build in context_object_name is object_list -->
+       <div> <!-- here set the variabl name is book which is similar to context_object_name of detailview -->
+      <!--  <h3><a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a></h3> --> <!--we set 'book_detail' is url name and then pass the pk,where book is the context_object_name id detailview -->
+          <!--here applying canonical reference -->
+           <h2><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h2> <!--here we using get_absolute_url method and this method describes the book detail with the pk is id -->
+         <p>by {{ book.author }}</p>
+
+       </div>
+    {% endfor %}
+
+{% endblock content %}

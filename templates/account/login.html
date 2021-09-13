@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Log In{% endblock title %}
+
+
+{% block content %}
+<!--if we press the sign out django allauth creates automatically a logout page where confirms the sign out process -->
+<!--django's auth app looks for templates within templates/registration directory,but django-allauth prefers they be located
+  within a templates/account directory-->
+<h2>Log In</h2>
+<form method="post">
+    {% csrf_token %}
+   {{ form|crispy }} <!--crispy forms -->
+    <button class="btn btn-success" type="submit">Log In</button>
+</form>
+{% endblock %}
+<!--in log in django allauth provied remember me options which default is None asks the user if they want their session to be remembered so they don't have to log in again.
+ It can also be set to False to not remember or True to always remember-->
+
+
+
+<!--
+we create a email directory inside the account directory.Because when user sign up using django allauth then a confirmation
+sms show in command line. If we override this message in command line then we have to create two text file like 'email_confirmation_subject' and
+'email_confirmation_message', then it will be override.
+in text file load i18n means Django's ability to multiple languages. autoescape on means security issues,we trust out content here so we don't need to on this.Then blocktrans template tags to support translation
+
+in email_confirmation_message.txt file we should update the code from the original which one gives from django allauth. If we don't update the text file then django shows error. You can remove the backslash in email_confirmation_message.txt file
+-->

@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load account %}
+{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+{% block content %}
+<h1>{% trans "Confirm E-mail Address" %}</h1>
+{% if confirmation %}  <!--if there are valid confirmation that the link is confirming email-->
+{% user_display confirmation.email_address.user as user_display %} <!--define user as a user_display -->
+<p>{% blocktrans with confirmation.email_address.email as email %}Please confirm   <!--define the email and use it -->
+that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user
+{{ user_display }}.{% endblocktrans %}</p>
+<form method="post" action="{% url 'account_confirm_email' confirmation.key %}"> <!--account_confirm_email is build in url name for confirmation email in django allauth -->
+{% csrf_token %}
+<button class="btn btn-primary" type="submit">{% trans 'Confirm' %}</button>
+</form>
+
+{% else %}
+{% url 'account_email' as email_url %}
+<p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please
+<a href="{{ email_url }}">issue a new e-mail confirmation request</a>. <!--the 'account_email' is url name build in django allauth for send the email -->
+
+{% endblocktrans %}</p>
+{% endif %}
+{% endblock %}
+
+<!--.../accounts/password/reset/ for reseting password and ../accounts/password/change for change the password which is build in provide from django allauth  -->
+
+
+
+
+
+

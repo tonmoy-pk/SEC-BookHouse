@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign Up {% endblock title %}
+
+{% block content %}
+<!--for sign up process in django alllauth using email then here sent a email verification in command line console -->
+<!--if we press the sign out django allauth creates automatically a logout page where confirms the sign out process -->
+<!--for signup purpose of django allauth we don't need to create url and view function,and django allauth looks for templates in account directory -->
+<h2>Sign Up</h2>
+<form method="post">
+    {% csrf_token %}
+     {{ form|crispy }}
+    <!--using crispy forms for signup process -->
+    <button class="btn btn-success" type="submit">Sign Up</button>
+</form>
+
+{% endblock content %}

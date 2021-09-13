@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+
+{% block title %}Search{% endblock title %}
+{% block content %}
+<h1>Search Results</h1>
+{% for book in book_list %} <!--book_list is context_object_name which means all books for related search -->
+    <div>
+        <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3> <!--get_absolute_url method for detailview  -->
+        <p>Author: {{ book.author }}</p> <!--author is instance of Book model -->
+        <p>Price: $ {{ book.price }}</p>
+    </div>
+
+{% endfor %}
+{% endblock content %}
